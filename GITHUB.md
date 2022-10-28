@@ -18,6 +18,7 @@ After this, you have 2 options: **Upload your current workspace to the repositor
 Now that you've set everything up, you'll want to upload your current workspace to the repository. This will allow you to work with your team members and keep track of your code and its latest changes.
 
 1. Save everything in your workspace. You can do this by pressing `Ctrl + K then S` or by clicking `File (menu) > Save All` in the top left corner of the screen.
+1a. You can just create a new repository at this point. Get GitHub
 2. Fork the 2022 repository at https://github.com/hchung04/FRC2022/fork. Follow the instructions on the page to fork the repository.
 3. You'll be taken to a new page. Click `Add file` and then `Upload files`. Hit `Select your files` and navigate to your workspace. Select all the files and hit `Open`. Then, hit `Commit changes`.
 4. At this point, your code is now in GitHub. To test this, clone your new repository and open it in Visual Studio Code. If you can see your code, you're good to go. If not, you can try again or ask for help.
