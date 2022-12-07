@@ -76,6 +76,16 @@ public class RobotContainer {
   public static DigitalInput hoodLimitSwitch = new DigitalInput(6/*AutoConstants.hoodLimitSwitchPort*/);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+  * The RobotContainer's constructor.
+  * This is where the bulk of the robot should be declared.
+  * eg: public RobotContainer() {
+  *     m_exampleSubsystem = new ExampleSubsystem();
+  *     m_chooser.setDefaultOption("Default Option", new ExampleCommand());
+  *     m_chooser.addOption("Option 2", new Command2());
+  *     SmartDashboard.putData("Auto mode", m_chooser);
+  * }
+   */
   public RobotContainer() {
     // Configure the button bindings
     m_DriveCommand.execute();

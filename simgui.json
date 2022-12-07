@@ -16,6 +16,16 @@
       }
     },
     "Other Devices": {
+      "SPARK MAX [10]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [13]": {
+        "header": {
+          "open": true
+        }
+      },
       "SPARK MAX [14]": {
         "header": {
           "open": true
@@ -67,9 +77,11 @@
       "/LiveWindow/Ungrouped/MotorControllerGroup[2]": "Motor Controller",
       "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
       "/LiveWindow/Ungrouped/PWMSparkMax[0]": "Motor Controller",
+      "/LiveWindow/Ungrouped/PWMSparkMax[8]": "Motor Controller",
       "/LiveWindow/Ungrouped/PWMTalonFX[7]": "Motor Controller",
       "/LiveWindow/Ungrouped/PWMTalonFX[8]": "Motor Controller",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
     },
     "windows": {
@@ -80,11 +92,16 @@
       }
     }
   },
+  "NetworkTables": {
+    "SmartDashboard": {
+      "open": true
+    }
+  },
   "Plot": {
     "Plot <0>": {
       "plots": [
         {
-          "height": 305
+          "height": 144
         }
       ]
     }

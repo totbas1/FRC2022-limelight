@@ -87,3 +87,14 @@ jar {
 deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
+
+// Adding Sentry capabilities
+// Make sure mavenCentral is there.
+repositories {
+    mavenCentral()
+}
+
+// Add Sentry's SDK as a dependency.
+dependencies {
+    implementation 'io.sentry:sentry:6.4.2'
+}
