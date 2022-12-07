@@ -13,110 +13,97 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.LimeLight;
 
 import frc.robot.subsystems.RobotDrive;
 
-public class ShootingRotate extends SubsystemBase {
-  /** Creates a new ShootingRotate. */
- /* private static CANSparkMax m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
-  private static CANSparkMax m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
+public class ShootingRotate extends SubsystemBase{
 
-  public static RelativeEncoder m_AngleRotateEncoder = m_angleRotator.getEncoder();
+  private static CANSparkMax m_Rotator;
+  private static CANSparkMax m_angleRotator;
+  public static RelativeEncoder m_AngleRotateEncoder;
+  //public static DigitalInput leftRotateTurretLimitSwitch;
+  //public static DigitalInput rightRotateTurretLimitSwitch;
 
-  public double currentPos = 0.0;
-  public double newPos = 0.0;
-
-  public ShootingRotate() {}*/
+  public ShootingRotate() {
+    m_Rotator = new CANSparkMax(AutoConstants.shootRotate, MotorType.kBrushless);
+    m_angleRotator = new CANSparkMax(AutoConstants.shootAngleRotate, MotorType.kBrushless);
+    m_AngleRotateEncoder = m_angleRotator.getEncoder();
+    //leftRotateTurretLimitSwitch = new DigitalInput(AutoConstants.leftRotateTurretLimitSwitch);
+    //rightRotateTurretLimitSwitch = new DigitalInput(AutoConstants.rightRotateTurretLimitSwitch);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    /*System.out.println(RobotContainer.limelightTrackingX());
-    SmartDashboard.putNumber("LimelightX", RobotContainer.limelightTrackingX());
-    RobotContainer.switchRotateStatus();*/
-   /* if(Shooting.adjustStatus()){
-      move(RobotContainer.getJoystickXAxis(), RobotContainer.getJoystickYAxis());
-    }
-    SmartDashboard.putNumber("Hood Angle: ", getZEncoder());
-    SmartDashboard.putNumber("Distance", RobotContainer.calcDistance(RobotContainer.limelightTrackingY()));
-    */
+
+   resetHood();
+   runXMotor(RobotContainer.getRightStickXAxis());
   }
+
   //Methods written by RR 1/11/2022
-  public void move(double aimAngle, double trajectoryAngle){
-   //if(!(RobotContainer.getHoodLimitSwitch() /*&& trajectoryAngle < 0.5*/)){
-   /*   m_angleRotator.set(-trajectoryAngle);
-    } else if(trajectoryAngle < 0 ){
-      m_angleRotator.set(-trajectoryAngle);
-    } else {
-      m_angleRotator.set(0);
-      ShootingRotate.m_AngleRotateEncoder.setPosition(0);
+  //trajectoryAngle is y-axis, aimAngle is x-axis
+  public void move(double offsetX, double desiredAngleY){
+
+    //no PID loop
+    while(Math.abs(offsetX) > 2 ){
+      final double speedX = 0.2;
+      if(offsetX > 0 ){
+        m_Rotator.set(-1*speedX);
       }
-
-    /*if(Math.abs(trajectoryAngle) < .1){
-      m_angleRotator.set(0);
-    }
-    else{
-      m_angleRotator.set(trajectoryAngle);
-    }*/
-   // m_Rotator.set(aimAngle);
-    
-    /*if(Math.abs(aimAngle) < .1){
-      m_Rotator.set(0);
-    }
-    else{
-      m_Rotator.set(aimAngle*1.1);
-    }*/
-    
-    
-    
-  }
-
-  public void runMotor(double speed){
-   // m_angleRotator.set(speed);
-  }
-
-  public double getZEncoder(){
-    //return m_AngleRotateEncoder.getPosition();
-    return 0;
-  }
-
-  // public void adjustZ(){
-  //   currentPos = m_AngleRotateEncoder.getPosition();
-  //   newPos = RobotContainer.limelightAdjustY();
-  //   while(Math.abs(newPos - currentPos) > 1){
-  //     if(newPos > currentPos){
-  //       m_angleRotator.set(.4);
-  //     }
-  //     if(newPos < currentPos){
-  //       m_angleRotator.set(.4);
-  //     }
-  //   }
-  //   currentPos = newPos;
-
-  //   if(RobotContainer.getHoodLimitSwitch()){
-  //     (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
-  //     }
-  // }
-
-  public void stop(){
-   // m_Rotator.set(0);
-  }
-
-  public void adjustX(){
-   /* while(Math.abs(RobotContainer.limelightTrackingX()) > 3){
-        final double speed = 0.3;
-        if(RobotContainer.limelightTrackingX() > 0 ){
-          m_Rotator.set(speed);
-        }
-        if(RobotContainer.limelightTrackingX() < 0){
-          m_Rotator.set(-1*speed);
-
+      if(offsetX < 0){
+        m_Rotator.set(1*speedX);
       }
     }
-    m_Rotator.set(0);*/
+    m_Rotator.set(0);
+
+    //no PID loop 
+    final double speedY = 0.35;
+    resetHood();
+    while(ShootingRotate.m_AngleRotateEncoder.getPosition() < (desiredAngleToRotations(desiredAngleY) - 30))
+    {
+      m_angleRotator.set(speedY);
+    }
+  }
+
+  public void resetHood(){
+    final double speedY = 0.35;
+    while(RobotContainer.hoodLimitSwitch.get() == true){
+      System.out.println("fj");
+      m_angleRotator.set(-1*speedY);
+    }
+    m_angleRotator.set(0);
+    (ShootingRotate.m_AngleRotateEncoder).setPosition(0);
+
+  }
+
+  public double desiredAngleToRotations(double desiredAngleY){
+    //with (1/1000 * 34/100.8) gear ratio -> .1214 degrees per rotation
+    double rotations = desiredAngleY/.1214;
+    return rotations;
+  }
+
+  public void runXMotor(double rightStickXaxis){
+    double speed = 0.4;
+    double motorDrive = rightStickXaxis*speed;
+    m_Rotator.set(motorDrive);
+  }
+
+  public void limeLightAutoAdjustX(double offsetX){
+    while(Math.abs(offsetX) > 4 ){
+      final double speedX = 0.4;
+      if(offsetX > 0 ){
+        m_Rotator.set(-1*speedX);
+      }
+      if(offsetX < 0){
+        m_Rotator.set(1*speedX);
+      }
+    }
+    m_Rotator.set(0);
   }
 
   /**
@@ -124,18 +111,17 @@ public class ShootingRotate extends SubsystemBase {
    * @param angle - angle we want to adjust to
    */
   public void adjustHood(){
-    /*double angle = RobotContainer.calcHoodAngle();
+    //no PID loop
+    double angle = LimeLight.calcHoodAngle();
     final double speed = 0.35;
     while (Math.abs(ShootingRotate.m_AngleRotateEncoder.getPosition()-angle) > 10){
-      //I'm too lazy to write a PID loop so let's hope that by the time the motor stops 10 degrees before, when it stops
-      // spinning it will reach our desired angle
       if(ShootingRotate.m_AngleRotateEncoder.getPosition() > angle){
         m_angleRotator.set(-1*speed);
       } else{
         m_angleRotator.set(speed);
       }
     }
-    m_angleRotator.set(0);*/
+    m_angleRotator.set(0);
   }
 
   @Override

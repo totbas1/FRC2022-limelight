@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.LimeLight;
 
 public class Shooting extends SubsystemBase {
   /** Creates a new Shooting. */
@@ -27,15 +28,42 @@ public class Shooting extends SubsystemBase {
 
   public Shooting() {}
   //methods written by RR on 1/11/22
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Constant shoot? ", constantMode);
+    SmartDashboard.putBoolean("Adjust mode? ", adjustMode);
+    SmartDashboard.putNumber("Speed Error", RobotContainer.distanceError);
+    SmartDashboard.putNumber("Speed", speed);
+    //double speed = 0;
+    if(RobotContainer.m_driverController2.getBButtonPressed()){
+      switchMode();
+    }
+    if(RobotContainer.m_driverController2.getYButtonPressed()){
+      switchMode2();
+    }
+    if(constantMode && (RobotContainer.rightTriggerAxis()||RobotContainer.m_driverController.getBButtonPressed())){
+      speed = 0.565 + RobotContainer.distanceError;
+      this.shootTop(speed);
+    }
+    else if(!constantMode && (RobotContainer.rightTriggerAxis()||RobotContainer.m_driverController.getBButtonPressed())){
+      speed = LimeLight.calcSpeed() + RobotContainer.distanceError;
+      this.shootTop(speed);
+    } else{
+      this.stop();
+    }
+
+
+  }
+
+  
   public void shootTop(double strength) {
-    m_ShooterTopRight.set(-strength);
-    //m_ShooterTopLeft.set(strength);
+    m_ShooterTopRight.set(strength);
     double tS  = strength;
     double current = 0;
     while(current < tS){
       current += 0.005;
-      m_ShooterTopRight.set(-current);
-    //  m_ShooterTopLeft.set(current);
+      m_ShooterTopRight.set(current);
     }
         
   }
@@ -66,39 +94,13 @@ public class Shooting extends SubsystemBase {
   }*/
 
   public void stop() {
-   /* m_ShooterTopRight.set(0);
+    m_ShooterTopRight.set(0);
     //m_ShooterTopLeft.set(0);*/
 
 
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-   /* SmartDashboard.putBoolean("Constant shoot? ", constantMode);
-    SmartDashboard.putBoolean("Adjust mode? ", adjustMode);
-    SmartDashboard.putNumber("Speed Error", RobotContainer.distanceError);
-    SmartDashboard.putNumber("Speed", speed);
-    //double speed = 0;
-    if(RobotContainer.m_driverController2.getBButtonPressed()){
-      switchMode();
-    }
-    if(RobotContainer.m_driverController2.getYButtonPressed()){
-      switchMode2();
-    }
-    if(constantMode && (RobotContainer.rightTriggerAxis()||RobotContainer.m_driverController.getBButtonPressed())){
-      speed = 0.565 + RobotContainer.distanceError;
-      this.shootTop(speed);
-    }
-    else if(!constantMode && (RobotContainer.rightTriggerAxis()||RobotContainer.m_driverController.getBButtonPressed())){
-      speed = RobotContainer.calcSpeed() + RobotContainer.distanceError;
-      this.shootTop(speed);
-    } else{
-      this.stop();
-    }*/
-
-
-  }
+  
 
   @Override
   public void simulationPeriodic() {

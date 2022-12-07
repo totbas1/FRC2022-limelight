@@ -4,12 +4,14 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 
 public class Climbing extends SubsystemBase {
   /** Creates a new Climbing. */
-  private PWMSparkMax m_Climbing1 = new PWMSparkMax(AutoConstants.climbing);
+  private static CANSparkMax m_Climbing1 = new CANSparkMax(AutoConstants.climbing, MotorType.kBrushless);
   public Climbing(){}
 
   public void climbUp(){

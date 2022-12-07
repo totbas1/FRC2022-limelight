@@ -45,7 +45,7 @@ public class RobotDrive extends SubsystemBase {
 
   public RobotDrive() {}
 
-  public void arcadeDriveSimple(double leftStickPos, double rightStickPos, double maxSpeed){
+  public void arcadeDriveSimple(double leftStickXaxis, double leftStickYaxis, double maxSpeed){
 
     // if(Math.abs(leftStickPos) < 0.05 && Math.abs(rightStickPos) < 0.05){
     //     double speed = 0.2;
@@ -56,9 +56,9 @@ public class RobotDrive extends SubsystemBase {
     //     }
 
     //   }
-    double drivePower = -1*Math.pow(leftStickPos, 3);
-    double leftDrive = drivePower + rightStickPos*0.5; //*0.5
-    double rightDrive  = drivePower - rightStickPos*0.5;
+    double drivePower = -.6*Math.pow(leftStickXaxis, 3);
+    double leftDrive = drivePower + leftStickYaxis*0.5; //*0.5
+    double rightDrive  = drivePower - leftStickYaxis*0.5;
     leftDrive = leftDrive*maxSpeed;
     rightDrive = rightDrive*maxSpeed;
 

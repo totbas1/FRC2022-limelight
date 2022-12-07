@@ -3,9 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Auto; // flagged as unused by VSCode -PB
+// import frc.robot.RobotContainer;
+//import frc.robot.subsystems.Auto; // flagged as unused by VSCode -PB
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.RobotDrive;
@@ -14,6 +13,8 @@ import frc.robot.subsystems.ShootingRotate;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 import com.revrobotics.RelativeEncoder;
+import frc.robot.LimeLight;
+import frc.robot.RobotContainer;
 
 /** An example command that uses an example subsystem. */
 public class AutoCommand extends CommandBase {
@@ -49,6 +50,7 @@ public class AutoCommand extends CommandBase {
     elevator_subsystem = e_sub;
     m_speed = speed;
 
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive_subsystem);
     addRequirements(intake_subsystem);
@@ -65,7 +67,7 @@ public class AutoCommand extends CommandBase {
      t = new Timer();
     t.start();
     drive_subsystem.resetEncoders();
-    RobotContainer.startingAngle = RobotContainer.limelightTrackingX();
+    RobotContainer.startingAngle = LimeLight.limelightTrackingX();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -89,7 +91,7 @@ public class AutoCommand extends CommandBase {
 
     // }
     while(t.get() < 3){
-    shooting_subsystem.shootTop(.55);
+    shooting_subsystem.shootTop(.6);
       }
     // Moves the ball up the elevator
     while(t.get() < 4){

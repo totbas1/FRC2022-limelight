@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.RobotContainer;
+import frc.robot.LimeLight;
 import frc.robot.subsystems.Shooting;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.shuffleboard.*;
@@ -33,11 +34,11 @@ public class ShootingVisionCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.shootTop(RobotContainer.getShootSpeedValue());
+    m_subsystem.shootTop(LimeLight.getShootSpeedValue());
     System.out.println ("ShootingVisionCommand execute.");
-    SmartDashboard.putNumber("tx", RobotContainer.limelightTrackingX()); //HC
-    SmartDashboard.putNumber("ty", RobotContainer.limelightTrackingY());
-    SmartDashboard.putNumber("ta", RobotContainer.limelightTrackingA());
+    SmartDashboard.putNumber("tx", LimeLight.limelightTrackingX()); //HC
+    SmartDashboard.putNumber("ty", LimeLight.limelightTrackingY());
+    SmartDashboard.putNumber("ta", LimeLight.limelightTrackingArea());
 
     //private NetworkTableEntry txEntry = Shuffleboard.getTab("SmartDashboard").add("tx", 0).getEntry();
     

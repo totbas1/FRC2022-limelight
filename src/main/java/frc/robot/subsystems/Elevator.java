@@ -27,24 +27,21 @@ public class Elevator extends SubsystemBase {
     m_Elevator.set(.5);
   }
 
-  public void moveDown(){
-    m_Elevator.set(-.5);
-
-  }
-
   public void moveUp2(){
-    m_Elevator2.set(-.5);
-    
-
-  }
-
-  public void moveDown2(){
-    m_Elevator2.set(.5);
-    
+    m_Elevator2.set(-.5); 
   }
 
   public void moveUp3(){
     m_Elevator3.set(-.7);
+  }
+
+
+  public void moveDown(){
+    m_Elevator.set(-.5);
+  }
+
+  public void moveDown2(){
+    m_Elevator2.set(.5); 
   }
 
   public void moveDown3(){

@@ -8,6 +8,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.RobotDrive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer; // flagged as unused by VSCode -PB
+import frc.robot.LimeLight;
 
 /** An example command that uses an example subsystem. */
 public class DriveCommand extends CommandBase {
@@ -32,7 +33,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(RobotContainer.limelightTrackingX());
+    System.out.println(LimeLight.limelightTrackingX());
   }
 
   // Called once the command ends or is interrupted.

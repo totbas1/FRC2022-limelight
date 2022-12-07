@@ -3,11 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
+import frc.robot.LimeLight;
 import frc.robot.subsystems.ShootingRotate;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+
 
 /** An example command that uses an example subsystem. */
 public class ShootingRotateCommand extends CommandBase {
@@ -34,19 +35,17 @@ public class ShootingRotateCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    rotateStatus = true;
-    m_subsystem.adjustX();
-    m_subsystem.adjustHood();
-    /*
-    if(RobotContainer.limelightTrackTarget() == false){
-      m_subsystem.move(0, 0);
-      System.out.println ("ShootingRotateCommand execute - target = false.");
+    if(LimeLight.limelightTrackTarget() == true){
+      System.out.println ("ShootingRotateCommand failed to execute");
     } else {
-      SmartDashboard.putNumber("Turret Rotate X", RobotContainer.limelightAdjustX());
-      SmartDashboard.putNumber("Turret Rotate Y", RobotContainer.limelightAdjustY());
-      m_subsystem.move(RobotContainer.limelightAdjustX(), RobotContainer.limelightAdjustY());
-      System.out.println ("ShootingRotateCommand execute - target = true.");
-    }*/
+      rotateStatus = true;
+      //SmartDashboard.putNumber("Turret Rotate X", LimeLight.limelightAdjustX());
+      //SmartDashboard.putNumber("Turret Rotate Y", LimeLight.limelightAdjustY());
+      SmartDashboard.putNumber("Turret Rotate X", LimeLight.limelightTrackingX());
+      SmartDashboard.putNumber("Turret Rotate Y", LimeLight.limelightTrackingY());
+      m_subsystem.move(LimeLight.limelightTrackingX(), LimeLight.calcHoodAngle());
+      System.out.println ("ShootingRotateCommand is executing");
+    }
   }
 
   // Called once the command ends or is interrupted.

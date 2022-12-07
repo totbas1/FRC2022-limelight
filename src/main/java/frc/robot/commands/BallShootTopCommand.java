@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.Shooting;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.LimeLight;
 
 /** An example command that uses an example subsystem. */
 public class BallShootTopCommand extends CommandBase {
@@ -32,7 +33,8 @@ public class BallShootTopCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("BallShootTopCommand execute.");
-    m_subsystem.shootTop(RobotContainer.calcSpeed()/*.65[p7lk*/); //idea: write code in RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
+    m_subsystem.shootTop(LimeLight.calcSpeed()/*.65[p7lk*/); 
+    //idea: write code in ////RobotContainer that gets vision value. Rahul Rajaram 1/11/2022 
 
   }
 

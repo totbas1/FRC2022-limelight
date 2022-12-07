@@ -34,7 +34,7 @@ public final class Constants {
        // public static final int shooter_left=8;
         public static final int shootRotate = 3;
         public static final int shootAngleRotate = 15;
-        public static final int climbing = 8; //change
+        public static final int climbing = 8; 
         public static final int index2 = 10;
         public static final int index3 = 13;
         public static final int elevator = 14;
@@ -42,8 +42,11 @@ public final class Constants {
         public static final int frontLeftDrive = 1;
         public static final int rearRightDrive = 4; 
         public static final int frontRightDrive = 6;
-        public static final int ballLimitSwitchPort = 0; //change
-        public static final int hoodLimitSwitchPort = 5;
+        //public static final int ballLimitSwitchPort = 0; //change
+        public static final int hoodLimitSwitchPort = 0;
+
+        public static final int leftRotateTurretLimitSwitch = 1;
+        public static final int rightRotateTurretLimitSwitch = 2;
 
         /*
         private SpeedController m_rearLeft = new PWMVictorSPX(0);
